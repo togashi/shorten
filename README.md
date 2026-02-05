@@ -4,6 +4,13 @@ UUID やハッシュをできるだけ短いテキストで表現したかった
 
 ## 例
 
+デフォルトエンコーディング (Base32)
+```shell
+> shorten cc4350a9-a41a-40dc-ad7a-14f862050eb4
+ZRBVBKNEDJANZLL2CT4GEBIOWQ
+```
+
+ショーケース
 ```shell
 > shorten -e showcase cc4350a9-a41a-40dc-ad7a-14f862050eb4
 Hex(thru): cc4350a9a41a40dcad7a14f862050eb4

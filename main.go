@@ -260,9 +260,9 @@ var showcaseEncodings = []Params{
 
 func shortenShowcase(src []byte, out io.Writer) (err error) {
 	for _, params := range showcaseEncodings {
-		out.Write([]byte(params.Label))
+		fmt.Fprint(out, params.Label)
 		err = shorten(params, src, out)
-		out.Write([]byte("\n"))
+		fmt.Fprintln(out)
 		if err != nil {
 			return err
 		}
@@ -303,7 +303,7 @@ func main() {
 			if flags.Encoding == "showcase" {
 				err = shortenShowcase(bytes, os.Stdout)
 				if err != nil {
-					fmt.Println(err)
+					fmt.Fprintln(os.Stderr, err)
 				}
 			} else {
 				err = shorten(Params{
@@ -311,7 +311,7 @@ func main() {
 					Charset:  flags.Charset,
 				}, bytes, os.Stdout)
 				if err != nil {
-					fmt.Println(err)
+					fmt.Fprintln(os.Stderr, err)
 				}
 			}
 		} else {
@@ -322,7 +322,7 @@ func main() {
 				if flags.Encoding == "showcase" {
 					err := shortenHexEncodedShowcase(arg, os.Stdout)
 					if err != nil {
-						fmt.Println(err)
+						fmt.Fprintln(os.Stderr, err)
 					}
 				} else {
 					err := shortenHexEncoded(Params{
@@ -330,7 +330,7 @@ func main() {
 						Charset:  flags.Charset,
 					}, arg, os.Stdout)
 					if err != nil {
-						fmt.Println(err)
+						fmt.Fprintln(os.Stderr, err)
 					}
 				}
 			}
@@ -341,16 +341,16 @@ func main() {
 			if flags.Encoding == "showcase" {
 				err := shortenHexEncodedShowcase(arg, os.Stdout)
 				if err != nil {
-					fmt.Println(err)
+					fmt.Fprintln(os.Stderr, err)
 				}
 			} else {
 				err := shortenHexEncoded(Params{
 					Encoding: flags.Encoding,
 					Charset:  flags.Charset,
 				}, arg, os.Stdout)
-				os.Stdout.Write([]byte("\n"))
+				fmt.Fprintln(os.Stdout)
 				if err != nil {
-					fmt.Println(err)
+					fmt.Fprintln(os.Stderr, err)
 				}
 			}
 		}
