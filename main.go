@@ -147,6 +147,7 @@ func toHexCharsOnly(s string) string {
 	if len(tmp)%2 == 1 {
 		return "0" + tmp
 	}
+	fmt.Fprintln(os.Stderr, "toHexCharsOnly.out: "+tmp)
 	return tmp
 }
 
@@ -290,14 +291,14 @@ func shortenHexEncodedShowcase(src string, out io.Writer) (err error) {
 func main() {
 	flag.Parse()
 	if flags.Version {
-		fmt.Println("shorten/1.1.0")
+		fmt.Println("shorten/1.1.1")
 		return
 	}
 	if flag.NArg() == 0 {
 		if flags.Binary {
 			bytes, err := io.ReadAll(os.Stdin)
 			if err != nil {
-				fmt.Println(err)
+				fmt.Fprintln(os.Stderr, err)
 				return
 			}
 			if flags.Encoding == "showcase" {
@@ -329,6 +330,7 @@ func main() {
 						Encoding: flags.Encoding,
 						Charset:  flags.Charset,
 					}, arg, os.Stdout)
+					fmt.Fprintln(os.Stdout)
 					if err != nil {
 						fmt.Fprintln(os.Stderr, err)
 					}
